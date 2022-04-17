@@ -10,10 +10,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class DriverSettings {
 
     public static void configure() {
+        System.getProperty("properties", "local");
         Configuration.browser = Project.config.browser();
         Configuration.browserVersion = Project.config.browserVersion();
         Configuration.browserSize = Project.config.browserSize();
-//        Configuration.baseUrl = App.config.webUrl();
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         ChromeOptions chromeOptions = new ChromeOptions();
@@ -43,16 +43,13 @@ public class DriverSettings {
         }
 
         if (Project.isRemoteWebDriver()) {
-            String login = System.getProperty("login");
-            String pass = System.getProperty("pass");
-
-            Configuration.remote = "https://" + login + ":" + pass + "@" + Project.config.remoteDriverUrl() + "/wd/hub";
             capabilities.setCapability("enableVNC", true);
             capabilities.setCapability("enableVideo", true);
+            Configuration.remote = Project.config.remoteDriverUrl();
         }
 
-        capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         Configuration.browserCapabilities = capabilities;
+
     }
 }
 
