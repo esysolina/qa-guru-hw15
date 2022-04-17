@@ -7,10 +7,17 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.util.Properties;
+
 public class DriverSettings {
 
     public static void configure() {
-        System.getProperty("properties", "local");
+        Properties properties = System.getProperties();
+        String system = properties.getProperty("properties");
+        if (system == null) {
+            System.setProperty("properties", "local");
+        }
+
         Configuration.browser = Project.config.browser();
         Configuration.browserVersion = Project.config.browserVersion();
         Configuration.browserSize = Project.config.browserSize();

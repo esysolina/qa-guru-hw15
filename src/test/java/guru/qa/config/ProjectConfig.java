@@ -5,7 +5,7 @@ import org.aeonbits.owner.Config;
 @Config.LoadPolicy(Config.LoadType.MERGE)
 @Config.Sources({
         "system:properties",
-        "classpath:${config}.properties"
+        "classpath:${properties}.properties"
 })
 public interface ProjectConfig extends Config {
 
@@ -14,6 +14,7 @@ public interface ProjectConfig extends Config {
     String browser();
 
     @Key("browserVersion")
+    @DefaultValue("99.0")
     String browserVersion();
 
     @Key("browserSize")
@@ -21,8 +22,10 @@ public interface ProjectConfig extends Config {
     String browserSize();
 
     @Key("remoteDriverUrl")
+    @DefaultValue("")
     String remoteDriverUrl();
 
     @Key("videoStorage")
+    @DefaultValue("")
     String videoStorage();
 }
